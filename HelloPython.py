@@ -1,11 +1,6 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 print(100+200+300)
 print("hello python")
-
-#name = input("please input your name:")
-#print ('hello,',name)
 
 #print val
 a = 100

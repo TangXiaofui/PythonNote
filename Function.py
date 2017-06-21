@@ -1,163 +1,175 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+n1 = 255
+n2 = 1000
+print("255 = %s"%hex(n1))
+print(hex(n2))
 
-def area_of_circle(r):
-    pi = 3.14
-    return pi * r ** 2
-
-def sum2(start,end,func):
-    total = 0;
-    for x in range(start,end):
-        total += func(x)
-    return total
-
-def func1(x):
-    return x
-
-def func2(x):
-    return x**2 + 1
-
-def nop():
-    pass
-
-def my_abs(x):
+def myAbs(x):
     if not isinstance(x,(int,float)):
         raise TypeError("bad operand type")
-    if (x >= 0):
+    if  x >= 0:
         return x
-    elif (x < 0):
+    else:
         return -x
 
-print (area_of_circle(2))
-print (sum2(1,4,func2))
-print (nop())
-
+print(myAbs(-10))
+def nop():
+    pass
 import math
-def move(x,y,step,angle = 0):
-    xn = x + step * math.cos(angle)
-    yn = y + step * math.sin(angle)
-    return xn,yn
 
-x,y = move(10,10,10,math.pi/6)
-print (x,y)
+def move(x,y,step,angle):
+    xpos = x + step * math.cos(angle)
+    ypos = y + step * math.sin(angle)
+    return xpos,ypos
 
-#return tuple
-r = move (100,100,100,math.pi/6)
-print (r)
+print(move(0,0,10,math.pi/6))
 
-def quadratic(a,b,c):
+def quardratic(a,b,c):
     L = [a,b,c]
-    for x in L:
-        if not isinstance(x,(int,float)):
-            raise TypeError("bad Type")
+    for l in L:
+        if  not isinstance(l,(int,float)):
+            raise TypeError("bad operand type")
 
-    if(a == 0):
-        if(b != 0):
+    if a == 0:
+        if b != 0:
             return -c/b
         else:
-            print ("无解")
+            return 'error'
     else:
         D = b**2 - 4 * a * c
-        if(D >= 0):
-            x1 = (-b+math.sqrt(D))/(2 * a)
-            x2 = (-b-math.sqrt(D))/(2 * a)
-            return x1,x2
+        if D >= 0 :
+            s1 = (-b + math.sqrt(D))/(2 * a)
+            s2 = (-b - math.sqrt(D))/(2 * a)
+            return (s1,s2)
         else:
-            print('无解')
+            return 'error'
 
-print (quadratic(2,3,1))
-
-
-def enroll(name,gender,age=6,city = "bejing"):
-    print ("name : %s"%(name))
-    print ("gender :",gender)
-    print ('age :',age)
-    print ('city :',city)
-enroll('xxx','boy')
-enroll('txh','boy',city='jinjiang')
+print(quardratic(2,3,1))
+print(quardratic(1,3,-4))
 
 
-#def add_end(L=[]):
-#    L.append('END')
-#    return L
-def add_end(L = None):
-    if( L == None):
-        L = []
-    L.append('END')
-    return L
-print (add_end())
-print (add_end())
-
-
-def calc(*nums):
-    sum = 0
-    for i in nums:
-        sum += i
+def myPower(x,n = 2):
+    sum = 1
+    while n:
+        n = n - 1
+        sum = sum * x
     return sum
 
-print(calc(1,2,3))
-print(calc(1,2))
+print(myPower(3,4))
+print(myPower(3))
 
-num = [1,2,3,4,5]
-print(calc(*num))
 
-def person(name,age, **kv):
-    if('job' in kv):
-        pass
-    print('name',name,'age',age,'other',kv)
+def enroll(name,gender,age = 20,city = 'guangzhou'):
+    print("name:",name)
+    print("gender:",gender)
+    print("age:",age)
+    print("city",city)
 
-print ( person('txh',20,city='jinjiang') )
-extra = {'city':'jinjiang','job':'student'}
-print ( person('txh',20,city=extra['city']) )
-print ( person('txh',20, **extra))
+print(enroll("txh","boy"))
 
-def person2(name,*,age=20):
-    print(name,age)
+print(enroll('txh','boy',city='jinjiang'))
 
-#print( person2('txh',20))
-print( person2('txh',age=20))
-print( person2('txh'))
 
-def f1(a, b, c=0, *args, **kw):
-    print('a =', a, 'b =', b, 'c =', c, 'args =', args, 'kw =', kw)
+def add_end(L = []):
+    L.append('END')
+    return L
 
-def f2(a, b, c=0, *, d, **kw):
-    print('a =', a, 'b =', b, 'c =', c, 'd =', d, 'kw =', kw)
+print(add_end([1,2,3]))
+print(add_end())
+print(add_end())
 
-print (f1(1,2,d=3,y=4))
-print (f2(1,2,d=3,y=4))
-print (f1(1,2,3,'a','b',y=4))
 
-args=(1,2,3)
-kw={'d':99}
-print(f1(*args,**kw))
-print(f2(*args,**kw))
-#默认参数一定要用不可变对象，如果是可变对象，程序运行时会有逻辑错误！
-#要注意定义可变参数和关键字参数的语法：
-#*args是可变参数，args接收的是一个tuple；
-#**kw是关键字参数，kw接收的是一个dict。
+def add_end_1(L=None):
+    if  L == None:
+        L = []
+    L.append('end')
+    return L
+print(add_end_1())
+print(add_end_1())
 
-def fact(x):
-    if(x == 1):
-        return 1
-    return x * fact(x-1)
+# ，参数定义的顺序必须是：必选参数、默认参数、可变参数、命名关键字参数和关键字参数
 
-def fact2(x):
-    return fact_iter(x,1)
+def calcuNum(numbers):
+    sum = 0
+    for n in numbers:
+        sum = sum + n
+    return sum
 
-def fact_iter(num,product):
-    if num == 1:
-        return product
-    return fact_iter(num-1,num*product)
-print (fact(5))
-print (fact2(5))
+print(calcuNum([1,2,3,4,5]))
 
-def move(n,a,b,c):
-    if(n == 1):
-        print(a+'->'+c)
+def calcuNum2(*number):
+    s = 0
+    for n in number:
+        s = s + n * n
+    return s
+print(calcuNum2(1,2,3))
+print(calcuNum2(2,3,4,5,6))
+
+L = [1,2,3,4,5,6]
+print(calcuNum2(*L))
+
+def person(name,age,**kw):
+    print("name",name)
+    print("age",age)
+    if 'city' in kw:
+        print("welcome")
+    print("other",kw)
+
+print(person("txh",20))
+print(person("txh",20,city = "jinjiang",gender = "boy"))
+
+extra = { "gender" : "boy","city" : "jinjiang"}
+print(person("txh",21,**extra))
+
+
+def person2(name,age,*,gender,city):
+    print("name",name,"age",age,gender,city)
+print(person2("txh",20,**extra))
+
+
+print("------------------------------------------------------")
+def person3(name,age,*args,gender,city):
+    print("name",name,"age",age,args,gender,city)
+print(person3("txh",20,[1,2,3],**extra))
+
+
+def person4(name,age = 20,*args,gender,city = "guangzhou",**kw):
+    print(name,age,args,gender,city,kw)
+
+print(person4("txh",gender="boy",sport = "basketball"))
+
+
+def hello(greeting,*name):
+    if  len(name) == 0:
+        print("%s! " % greeting )
     else:
-        move(n-1,a,c,b)
-        move(1,a,b,c)
-        move(n-1,b,a,c)
+        print("%s,%s!" %(greeting,','.join(name)))
 
-print(move(3,'a','b','c'))
+print("hello","txh","txh","txh")
+
+
+def print_score(**kw):
+    print('     name    score')
+    print('------------------')
+    for name,score in kw.items():
+        print('%10s    %d ' % (name,score))
+    print()
+
+print_score(t=100,x=10,h=00)
+
+
+def fact(n):
+    if  n == 1:
+        return 1
+    return n * fact(n-1)
+
+print(fact(5))
+
+def HanataMove(n,a,b,c):
+    if  n == 1:
+        print('move:%s -> %s'%(a,c))
+    else:
+        HanataMove(n-1,a,c,b)
+        HanataMove(1,a,b,c)
+        HanataMove(n-1,b,a,c)
+
+print(HanataMove(4,'a','b','c'))
